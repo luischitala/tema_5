@@ -8,6 +8,13 @@ const PORT = process.env.PORT || 3000;
 // Configura el middleware para analizar JSON en las solicitudes
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Permite el acceso desde cualquier origen
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos HTTP permitidos
+  next();
+});
+
 // Configura la conexión a la base de datos SQLite
 const db = new sqlite3.Database('mi_base_de_datos.db', (err) => {
   if (err) {
